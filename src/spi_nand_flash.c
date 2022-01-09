@@ -3013,7 +3013,7 @@ static SPI_NAND_FLASH_RTN_T spi_nand_read_page (u32 page_number, SPI_NAND_FLASH_
 	/* 1. Load Page into cache of NAND Flash Chip */
 	if( spi_nand_load_page_into_cache(page_number) == SPI_NAND_FLASH_RTN_DETECTED_BAD_BLOCK )
 	{
-		_SPI_NAND_PRINTF("spi_nand_read_page: Bad Block, ECC cannot recovery detecte, page = 0x%x\n", page_number);
+		_SPI_NAND_PRINTF("spi_nand_read_page: Bad Block, ECC cannot recovery detected, page = 0x%x\n", page_number);
 		rtn_status = SPI_NAND_FLASH_RTN_DETECTED_BAD_BLOCK;
 	}
 
@@ -3356,7 +3356,6 @@ static SPI_NAND_FLASH_RTN_T spi_nand_read_internal ( u32 addr, u32 len, u8 *ptr_
 		rtn_status = spi_nand_read_page(page_number, speed_mode);
 		if(rtn_status == SPI_NAND_FLASH_RTN_DETECTED_BAD_BLOCK) {
 			*status = SPI_NAND_FLASH_RTN_DETECTED_BAD_BLOCK;
-			return (rtn_status);
 		}
 
 		/* 3. Retrieve the request data */
@@ -3381,7 +3380,7 @@ static SPI_NAND_FLASH_RTN_T spi_nand_read_internal ( u32 addr, u32 len, u8 *ptr_
 	printf("Read 100%% [%u] of [%u] bytes      \n", len - remain_len, len);
 	_SPI_NAND_SEMAPHORE_UNLOCK();
 
-	return (rtn_status);
+	return (*status);
 }
 
 
